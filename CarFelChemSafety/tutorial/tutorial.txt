@@ -1,4 +1,4 @@
-After do everything here, dont forget to add manually in firebase firestore
+1- After do everything here, dont forget to add manually in firebase firestore
 
 FIREBASE FIRESTORE
 APP CHECK
@@ -7,3 +7,5 @@ AUTHENTICATION
 in Cloud you will maybe need also to update API & CLOUD service.
 
 I don't know exaclty if reCaptcha is necessary but I had to enabled too.
+
+2 -

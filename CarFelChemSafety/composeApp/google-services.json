@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "733417397015",
+    "project_id": "carfel-chemsafety",
+    "storage_bucket": "carfel-chemsafety.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733417397015:android:cf0447f6df2a94ab93f552",
+        "android_client_info": {
+          "package_name": "com.cng.carfelchemsafety"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733417397015-vhi7lp2qv69oc6kmdotju7s61ptlqvvu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cng.carfelchemsafety",
+            "certificate_hash": "fe6a772b8954e10c110963c530dc4ecb42467344"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByU9bTd9BRYG5uDPcT6DHxrYmnTooxbk0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

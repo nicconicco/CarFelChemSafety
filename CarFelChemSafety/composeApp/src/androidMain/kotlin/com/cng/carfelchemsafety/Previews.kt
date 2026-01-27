@@ -3,6 +3,7 @@ package com.cng.carfelchemsafety
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.cng.carfelchemsafety.model.UserRole
 import com.cng.carfelchemsafety.screens.HomeScreen
 import com.cng.carfelchemsafety.screens.MyAccountScreen
 import com.cng.carfelchemsafety.screens.MyApprovalsScreen
@@ -36,7 +37,9 @@ fun HomeScreenPreview() {
             onCreatePT = {},
             onMyPermits = {},
             onMyApprovals = {},
-            onMyAccount = {}
+            onMyAccount = {},
+            userRole = UserRole.MANAGER,
+            onImportExcel = {}
         )
     }
 }
@@ -228,7 +231,18 @@ fun MyApprovalsScreenPreview() {
 fun MyAccountScreenPreview() {
     MaterialTheme {
         MyAccountScreen(
+            currentUser = com.cng.carfelchemsafety.model.User(
+                id = "abc123",
+                username = "Carlos",
+                email = "carlos@email.com",
+                passwordHash = ""
+            ),
+            profileUpdateState = com.cng.carfelchemsafety.auth.ProfileUpdateResult.Idle,
+            passwordChangeState = com.cng.carfelchemsafety.auth.PasswordChangeResult.Idle,
             strings = Translations.portuguese,
+            onSaveClick = { _, _ -> },
+            onChangePasswordClick = { _, _, _ -> },
+            onLogoutClick = {},
             onBack = {}
         )
     }

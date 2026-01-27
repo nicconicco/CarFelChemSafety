@@ -1,5 +1,7 @@
 package com.cng.carfelchemsafety.util
 
+import kotlin.TODO
+
 enum class Language(val code: String, val flag: String) {
     PORTUGUESE("pt-BR", "\uD83C\uDDE7\uD83C\uDDF7"),
     ENGLISH("en-US", "\uD83C\uDDFA\uD83C\uDDF8"),
@@ -174,7 +176,39 @@ data class AppStrings(
     // Stub Screens
     val myPermitsTitle: String,
     val myApprovalsTitle: String,
-    val myAccountTitle: String
+    val myAccountTitle: String,
+
+    // My Account / Profile
+    val myProfile: String,
+    val personalInfo: String,
+    val saveProfile: String,
+    val profileUpdatedSuccess: String,
+    val changePasswordTitle: String,
+    val currentPasswordLabel: String,
+    val newPasswordLabel: String,
+    val confirmNewPasswordLabel: String,
+    val changePasswordButton: String,
+    val passwordChangedSuccess: String,
+    val accountIdLabel: String,
+    val logoutAccount: String,
+    val restrictedAccess: String,
+    val enterPasswordToContinue: String,
+    val incorrectPassword: String,
+    val enterButton: String,
+
+    // Excel
+    val menuImportExcel: String,
+    val importExcelTitle: String,
+    val importExcelSubtitle: String,
+    val importEmployeesTitle: String,
+    val importEmployeesDesc: String,
+    val importPTDataTitle: String,
+    val importPTDataDesc: String,
+    val importEmployeesSuccess: String,
+    val importSuccessTitle: String,
+    val importPTDataSuccess: String,
+    val importErrorTitle: String,
+    val importButton: String
 )
 
 object Translations {
@@ -338,7 +372,37 @@ object Translations {
         // Stub Screens
         myPermitsTitle = "Minhas PTs",
         myApprovalsTitle = "Minhas Aprovacoes",
-        myAccountTitle = "Minha Conta"
+        myAccountTitle = "Minha Conta",
+
+        // My Account / Profile
+        myProfile = "Meu Perfil",
+        personalInfo = "Informacoes pessoais",
+        saveProfile = "Salvar perfil",
+        profileUpdatedSuccess = "Perfil atualizado com sucesso!",
+        changePasswordTitle = "Alterar senha",
+        currentPasswordLabel = "Senha atual",
+        newPasswordLabel = "Nova senha",
+        confirmNewPasswordLabel = "Confirmar nova senha",
+        changePasswordButton = "Alterar senha",
+        passwordChangedSuccess = "Senha alterada com sucesso!",
+        accountIdLabel = "ID da conta",
+        logoutAccount = "Sair da conta",
+        restrictedAccess = "Acesso Restrito",
+        enterPasswordToContinue = "Digite a senha para continuar:",
+        incorrectPassword = "Senha incorreta",
+        enterButton = "Entrar",
+        menuImportExcel = "Importar Excel",
+        importExcelTitle = "Tela de importação de Excel",
+        importExcelSubtitle = "Importe sua planilha excel em esta tela",
+        importEmployeesTitle = "importEmployeesTitle",
+        importEmployeesDesc = "importEmployeesDesc",
+        importPTDataTitle = "importPTDataTitle",
+        importPTDataDesc = "importPTDataDesc",
+        importEmployeesSuccess = "importEmployeesSuccess",
+        importSuccessTitle = "importSuccessTitle",
+        importPTDataSuccess = "importPTDataSuccess",
+        importErrorTitle = "importErrorTitle",
+        importButton = "Importar"
     )
 
     val english = AppStrings(
@@ -501,7 +565,37 @@ object Translations {
         // Stub Screens
         myPermitsTitle = "My PTs",
         myApprovalsTitle = "My Approvals",
-        myAccountTitle = "My Account"
+        myAccountTitle = "My Account",
+
+        // My Account / Profile
+        myProfile = "My Profile",
+        personalInfo = "Personal information",
+        saveProfile = "Save profile",
+        profileUpdatedSuccess = "Profile updated successfully!",
+        changePasswordTitle = "Change password",
+        currentPasswordLabel = "Current password",
+        newPasswordLabel = "New password",
+        confirmNewPasswordLabel = "Confirm new password",
+        changePasswordButton = "Change password",
+        passwordChangedSuccess = "Password changed successfully!",
+        accountIdLabel = "Account ID",
+        logoutAccount = "Log out",
+        restrictedAccess = "Restricted Access",
+        enterPasswordToContinue = "Enter password to continue:",
+        incorrectPassword = "Incorrect password",
+        enterButton = "Enter",
+        menuImportExcel = "Import Excel",
+        importExcelTitle = "Tela de importação de Excel",
+        importExcelSubtitle = "Importe sua planilha excel em esta tela",
+        importEmployeesTitle = "importEmployeesTitle",
+        importEmployeesDesc = "importEmployeesDesc",
+        importPTDataTitle = "importPTDataTitle",
+        importPTDataDesc = "importPTDataDesc",
+        importEmployeesSuccess = "importEmployeesSuccess",
+        importSuccessTitle = "importSuccessTitle",
+        importPTDataSuccess = "importPTDataSuccess",
+        importErrorTitle = "importErrorTitle",
+        importButton = "Import"
     )
 
     val spanish = AppStrings(
@@ -664,7 +758,37 @@ object Translations {
         // Stub Screens
         myPermitsTitle = "Mis PTs",
         myApprovalsTitle = "Mis Aprobaciones",
-        myAccountTitle = "Mi Cuenta"
+        myAccountTitle = "Mi Cuenta",
+
+        // My Account / Profile
+        myProfile = "Mi Perfil",
+        personalInfo = "Informacion personal",
+        saveProfile = "Guardar perfil",
+        profileUpdatedSuccess = "Perfil actualizado con exito!",
+        changePasswordTitle = "Cambiar contrasena",
+        currentPasswordLabel = "Contrasena actual",
+        newPasswordLabel = "Nueva contrasena",
+        confirmNewPasswordLabel = "Confirmar nueva contrasena",
+        changePasswordButton = "Cambiar contrasena",
+        passwordChangedSuccess = "Contrasena cambiada con exito!",
+        accountIdLabel = "ID de la cuenta",
+        logoutAccount = "Cerrar sesion",
+        restrictedAccess = "Acceso Restringido",
+        enterPasswordToContinue = "Ingrese la contrasena para continuar:",
+        incorrectPassword = "Contrasena incorrecta",
+        enterButton = "Entrar",
+        menuImportExcel = "Importar Excel",
+        importExcelTitle = "Tela de importação de Excel",
+        importExcelSubtitle = "Importe sua planilha excel em esta tela",
+        importEmployeesTitle = "importEmployeesTitle",
+        importEmployeesDesc = "importEmployeesDesc",
+        importPTDataTitle = "importPTDataTitle",
+        importPTDataDesc = "importPTDataDesc",
+        importEmployeesSuccess = "importEmployeesSuccess",
+        importSuccessTitle = "importSuccessTitle",
+        importPTDataSuccess = "importPTDataSuccess",
+        importErrorTitle = "importErrorTitle",
+        importButton = "Importar"
     )
 
     fun getStrings(language: Language): AppStrings {

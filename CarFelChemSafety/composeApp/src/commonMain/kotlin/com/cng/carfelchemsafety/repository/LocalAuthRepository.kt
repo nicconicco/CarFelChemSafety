@@ -1,6 +1,8 @@
 package com.cng.carfelchemsafety.repository
 
+import com.cng.carfelchemsafety.config.DevConfig
 import com.cng.carfelchemsafety.model.User
+import com.cng.carfelchemsafety.model.UserRole
 import kotlin.random.Random
 
 class LocalAuthRepository : AuthRepository {
@@ -12,7 +14,8 @@ class LocalAuthRepository : AuthRepository {
             id = "1",
             username = "admin",
             email = "admin@example.com",
-            passwordHash = hashPassword("password")
+            passwordHash = hashPassword("password"),
+            role = if (DevConfig.DEFAULT_USER_ROLE_MANAGER) UserRole.MANAGER else UserRole.COMMON
         )
         users[defaultUser.username] = defaultUser
     }

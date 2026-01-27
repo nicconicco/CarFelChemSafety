@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.cng.carfelchemsafety.model.UserRole
 import com.cng.carfelchemsafety.util.AppStrings
 import com.cng.carfelchemsafety.viewmodel.SharedLoginViewModel
 
@@ -32,11 +33,13 @@ import com.cng.carfelchemsafety.viewmodel.SharedLoginViewModel
 fun HomeScreen(
     viewModel: SharedLoginViewModel,
     strings: AppStrings,
+    userRole: UserRole,
     onLogout: () -> Unit,
     onCreatePT: () -> Unit,
     onMyPermits: () -> Unit,
     onMyApprovals: () -> Unit,
     onMyAccount: () -> Unit,
+    onImportExcel: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val currentUser by viewModel.currentUser.collectAsState()
@@ -66,6 +69,7 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(40.dp))
 
+        // First row: always Criar PT + Minhas PTs
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -84,20 +88,56 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            MenuCard(
-                title = strings.menuMyApprovals,
-                onClick = onMyApprovals,
-                modifier = Modifier.weight(1f)
-            )
-            MenuCard(
-                title = strings.menuMyAccount,
-                onClick = onMyAccount,
-                modifier = Modifier.weight(1f)
-            )
+        //todo: after update in firebase check this
+//        if (userRole == UserRole.MANAGER) {
+        if (userRole == UserRole.COMMON) {
+            // MANAGER: second row with Aprovacoes + Minha Conta
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                MenuCard(
+                    title = strings.menuMyApprovals,
+                    onClick = onMyApprovals,
+                    modifier = Modifier.weight(1f)
+                )
+                MenuCard(
+                    title = strings.menuMyAccount,
+                    onClick = onMyAccount,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Import Excel button (full-width)
+            Button(
+                onClick = onImportExcel,
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onTertiary
+                )
+            ) {
+                Text(
+                    text = strings.menuImportExcel,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+        } else {
+            // COMMON: only Minha Conta
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                MenuCard(
+                    title = strings.menuMyAccount,
+                    onClick = onMyAccount,
+                    modifier = Modifier.weight(1f)
+                )
+            }
         }
 
         Spacer(modifier = Modifier.weight(1f))

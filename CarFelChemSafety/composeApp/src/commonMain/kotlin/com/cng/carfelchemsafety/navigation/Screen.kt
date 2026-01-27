@@ -26,5 +26,8 @@ enum class Screen {
     // Stub screens
     MyPermits,
     MyApprovals,
-    MyAccount
+    MyAccount,
+
+    // Excel Import
+    ImportExcel
 }

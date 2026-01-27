@@ -22,6 +22,7 @@ import com.cng.carfelchemsafety.navigation.Screen
 import com.cng.carfelchemsafety.screens.ErrorDialog
 import com.cng.carfelchemsafety.screens.ForgotPasswordScreen
 import com.cng.carfelchemsafety.screens.HomeScreen
+import com.cng.carfelchemsafety.screens.ImportExcelScreen
 import com.cng.carfelchemsafety.screens.LoginScreen
 import com.cng.carfelchemsafety.screens.MyAccountScreen
 import com.cng.carfelchemsafety.screens.MyApprovalsScreen
@@ -43,6 +44,7 @@ import com.cng.carfelchemsafety.screens.workpermit.PermitResultScreen
 import com.cng.carfelchemsafety.screens.workpermit.SubmittingPermitScreen
 import com.cng.carfelchemsafety.util.Language
 import com.cng.carfelchemsafety.util.Translations
+import com.cng.carfelchemsafety.viewmodel.ExcelImportViewModel
 import com.cng.carfelchemsafety.viewmodel.SharedLoginViewModel
 import com.cng.carfelchemsafety.viewmodel.WorkPermitViewModel
 
@@ -50,6 +52,7 @@ import com.cng.carfelchemsafety.viewmodel.WorkPermitViewModel
 fun App() {
     val viewModel = remember { SharedLoginViewModel() }
     val permitViewModel = remember { WorkPermitViewModel() }
+    val excelImportViewModel = remember { ExcelImportViewModel() }
 
     var currentScreen by remember { mutableStateOf(Screen.Login) }
     var termsAccepted by remember { mutableStateOf(false) }
@@ -112,6 +115,7 @@ fun App() {
                     HomeScreen(
                         viewModel = viewModel,
                         strings = strings,
+                        userRole = currentUser?.role ?: com.cng.carfelchemsafety.model.UserRole.COMMON,
                         onLogout = {
                             currentScreen = Screen.Login
                         },
@@ -127,6 +131,9 @@ fun App() {
                         },
                         onMyAccount = {
                             currentScreen = Screen.MyAccount
+                        },
+                        onImportExcel = {
+                            currentScreen = Screen.ImportExcel
                         }
                     )
                 }
@@ -326,7 +333,35 @@ fun App() {
                     )
                 }
                 Screen.MyAccount -> {
+                    val profileUpdateState by viewModel.profileUpdateState.collectAsState()
+                    val passwordChangeState by viewModel.passwordChangeState.collectAsState()
+
                     MyAccountScreen(
+                        currentUser = currentUser,
+                        profileUpdateState = profileUpdateState,
+                        passwordChangeState = passwordChangeState,
+                        strings = strings,
+                        onSaveClick = { username, email ->
+                            viewModel.updateProfile(username, email)
+                        },
+                        onChangePasswordClick = { currentPw, newPw, confirmPw ->
+                            viewModel.changePassword(currentPw, newPw, confirmPw)
+                        },
+                        onLogoutClick = {
+                            viewModel.logout()
+                            currentScreen = Screen.Login
+                        },
+                        onBack = {
+                            viewModel.resetProfileUpdateState()
+                            viewModel.resetPasswordChangeState()
+                            currentScreen = Screen.Home
+                        }
+                    )
+                }
+
+                Screen.ImportExcel -> {
+                    ImportExcelScreen(
+                        viewModel = excelImportViewModel,
                         strings = strings,
                         onBack = { currentScreen = Screen.Home }
                     )

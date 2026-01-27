@@ -2,6 +2,7 @@ package com.cng.carfelchemsafety.repository
 
 import com.cng.carfelchemsafety.config.DevConfig
 import com.cng.carfelchemsafety.model.User
+import com.cng.carfelchemsafety.model.UserRole
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.firestore.firestore
@@ -34,11 +35,18 @@ class FirebaseAuthRepository : AuthRepository {
             val firebaseUser = authResult.user
                 ?: return Result.failure(Exception("Erro ao fazer login"))
 
+            val roleStr = try { userDoc.get<String>("role") } catch (_: Exception) { null }
+            val role = when (roleStr) {
+                "MANAGER" -> UserRole.MANAGER
+                else -> UserRole.COMMON
+            }
+
             val user = User(
                 id = firebaseUser.uid,
                 username = userDoc.get<String>("username"),
                 email = email,
-                passwordHash = ""
+                passwordHash = "",
+                role = role
             )
 
             Result.success(user)
@@ -79,6 +87,7 @@ class FirebaseAuthRepository : AuthRepository {
                     "id" to user.id,
                     "username" to user.username,
                     "email" to user.email,
+                    "role" to user.role.name,
                     "createdAt" to System.currentTimeMillis()
                 )
             )
@@ -122,11 +131,17 @@ class FirebaseAuthRepository : AuthRepository {
             val userDoc = querySnapshot.documents.firstOrNull()
 
             userDoc?.let {
+                val roleStr = try { it.get<String>("role") } catch (_: Exception) { null }
+                val role = when (roleStr) {
+                    "MANAGER" -> UserRole.MANAGER
+                    else -> UserRole.COMMON
+                }
                 User(
                     id = it.get<String>("id"),
                     username = it.get<String>("username"),
                     email = it.get<String>("email"),
-                    passwordHash = ""
+                    passwordHash = "",
+                    role = role
                 )
             }
         } catch (e: Exception) {
@@ -143,11 +158,17 @@ class FirebaseAuthRepository : AuthRepository {
             val userDoc = querySnapshot.documents.firstOrNull()
 
             userDoc?.let {
+                val roleStr = try { it.get<String>("role") } catch (_: Exception) { null }
+                val role = when (roleStr) {
+                    "MANAGER" -> UserRole.MANAGER
+                    else -> UserRole.COMMON
+                }
                 User(
                     id = it.get<String>("id"),
                     username = it.get<String>("username"),
                     email = it.get<String>("email"),
-                    passwordHash = ""
+                    passwordHash = "",
+                    role = role
                 )
             }
         } catch (e: Exception) {

@@ -12,18 +12,10 @@ import platform.Foundation.timeIntervalSince1970
 class FirebaseAuthRepository : AuthRepository {
 
     private val auth by lazy {
-        Firebase.auth.also {
-            if (DevConfig.USE_FIREBASE_EMULATOR) {
-                it.useEmulator("localhost", DevConfig.AUTH_EMULATOR_PORT)
-            }
-        }
+        Firebase.auth
     }
     private val firestore by lazy {
-        Firebase.firestore.also {
-            if (DevConfig.USE_FIREBASE_EMULATOR) {
-                it.useEmulator("localhost", DevConfig.FIRESTORE_EMULATOR_PORT)
-            }
-        }
+        Firebase.firestore
     }
     private val usersCollection by lazy { firestore.collection("users") }
 
@@ -71,7 +63,12 @@ class FirebaseAuthRepository : AuthRepository {
         }
     }
 
-    override suspend fun register(username: String, email: String, password: String): Result<User> {
+    override suspend fun register(
+        username: String,
+        email: String,
+        password: String,
+        isGestor: Boolean
+    ): Result<User> {
         return try {
             val authResult = auth.createUserWithEmailAndPassword(email, password)
             val firebaseUser = authResult.user
@@ -81,7 +78,8 @@ class FirebaseAuthRepository : AuthRepository {
                 id = firebaseUser.uid,
                 username = username,
                 email = email,
-                passwordHash = ""
+                passwordHash = "",
+                role = if (isGestor) UserRole.MANAGER else UserRole.COMMON
             )
 
             usersCollection.document(firebaseUser.uid).set(

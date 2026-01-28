@@ -64,7 +64,13 @@ class SharedLoginViewModel(
         }
     }
 
-    fun register(username: String, email: String, password: String, confirmPassword: String) {
+    fun register(
+        username: String,
+        email: String,
+        password: String,
+        confirmPassword: String,
+        isGestor: Boolean
+    ) {
         _registerState.value = RegisterResult.Idle
 
         when {
@@ -81,7 +87,7 @@ class SharedLoginViewModel(
         viewModelScope.launch {
             _registerState.value = RegisterResult.Loading
 
-            repository.register(username, email, password)
+            repository.register(username, email, password, isGestor)
                 .onSuccess {
                     _registerState.value = RegisterResult.Success
                 }

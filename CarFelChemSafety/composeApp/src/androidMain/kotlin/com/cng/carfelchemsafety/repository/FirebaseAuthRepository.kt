@@ -1,6 +1,5 @@
 package com.cng.carfelchemsafety.repository
 
-import com.cng.carfelchemsafety.config.DevConfig
 import com.cng.carfelchemsafety.model.User
 import com.cng.carfelchemsafety.model.UserRole
 import dev.gitlive.firebase.Firebase
@@ -61,7 +60,12 @@ class FirebaseAuthRepository : AuthRepository {
         }
     }
 
-    override suspend fun register(username: String, email: String, password: String): Result<User> {
+    override suspend fun register(
+        username: String,
+        email: String,
+        password: String,
+        isGestor: Boolean
+    ): Result<User> {
         return try {
             val existingUserQuery = usersCollection
                 .where { "username" equalTo username }
@@ -79,7 +83,8 @@ class FirebaseAuthRepository : AuthRepository {
                 id = firebaseUser.uid,
                 username = username,
                 email = email,
-                passwordHash = ""
+                passwordHash = "",
+                role = if (isGestor) UserRole.MANAGER else UserRole.COMMON
             )
 
             usersCollection.document(firebaseUser.uid).set(

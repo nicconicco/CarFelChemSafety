@@ -30,7 +30,12 @@ class LocalAuthRepository : AuthRepository {
         }
     }
 
-    override suspend fun register(username: String, email: String, password: String): Result<User> {
+    override suspend fun register(
+        username: String,
+        email: String,
+        password: String,
+        isGestor: Boolean
+    ): Result<User> {
         if (users.containsKey(username)) {
             return Result.failure(Exception("Nome de usuario ja existe"))
         }
@@ -55,7 +60,8 @@ class LocalAuthRepository : AuthRepository {
             id = generateId(),
             username = username,
             email = email,
-            passwordHash = hashPassword(password)
+            passwordHash = hashPassword(password),
+            role = if (isGestor) UserRole.MANAGER else UserRole.COMMON
         )
 
         users[username] = newUser

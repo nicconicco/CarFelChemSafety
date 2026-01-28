@@ -4,7 +4,7 @@ import com.cng.carfelchemsafety.model.User
 
 interface AuthRepository {
     suspend fun login(username: String, password: String): Result<User>
-    suspend fun register(username: String, email: String, password: String): Result<User>
+    suspend fun register(username: String, email: String, password: String, isGestor: Boolean): Result<User>
     suspend fun recoverPassword(email: String): Result<String>
     suspend fun getUserByEmail(email: String): User?
     suspend fun getUserByUsername(username: String): User?

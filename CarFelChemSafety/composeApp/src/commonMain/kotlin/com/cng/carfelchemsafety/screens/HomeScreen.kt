@@ -87,9 +87,7 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        //todo: after update in firebase check this
-//        if (userRole == UserRole.MANAGER) {
-        if (userRole == UserRole.COMMON) {
+        if (userRole == UserRole.MANAGER) {
             // MANAGER: second row with Aprovacoes + Minha Conta
             Row(
                 modifier = Modifier.fillMaxWidth(),

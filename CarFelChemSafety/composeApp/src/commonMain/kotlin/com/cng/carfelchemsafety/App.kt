@@ -101,6 +101,7 @@ fun App() {
         ) {
             when (currentScreen) {
                 Screen.Login -> {
+                    isFromUserLogged = false
                     LoginScreen(
                         strings = strings,
                         onLoginClick = { username, password ->
@@ -151,23 +152,26 @@ fun App() {
                         termsAccepted = termsAccepted,
                         registerState = registerState,
                         initialFormData = registerFormData,
-                        onRegisterClick = { username, email, password ->
+                        onRegisterClick = { username, email, password, isGestor ->
                             viewModel.register(
                                 username = username,
                                 email = email,
                                 password = password,
-                                confirmPassword = password
+                                confirmPassword = password,
+                                isGestor = isGestor
                             )
                         },
                         onBackClick = {
                             if (isFromUserLogged) {
-                                currentScreen = Screen.MenuAdmin
-                            } else {
-                                isFromUserLogged = false
-
                                 viewModel.resetRegisterState()
                                 registerFormData = RegisterFormData()
                                 termsAccepted = false
+                                currentScreen = Screen.MenuAdmin
+                            } else {
+                                viewModel.resetRegisterState()
+                                registerFormData = RegisterFormData()
+                                termsAccepted = false
+                                isFromUserLogged = false
                                 currentScreen = Screen.Login
                             }
                         },
@@ -183,6 +187,7 @@ fun App() {
                 }
 
                 Screen.Terms -> {
+                    isFromUserLogged = false
                     TermsScreen(
                         strings = strings,
                         onAgreeClick = {

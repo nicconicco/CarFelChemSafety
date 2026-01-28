@@ -1,6 +1,5 @@
 package com.cng.carfelchemsafety.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,7 +42,8 @@ data class RegisterFormData(
     val username: String = "",
     val email: String = "",
     val password: String = "",
-    val confirmPassword: String = ""
+    val confirmPassword: String = "",
+    val isGestor: Boolean = false
 )
 
 @Composable
@@ -52,7 +52,7 @@ fun RegisterScreen(
     termsAccepted: Boolean = false,
     registerState: RegisterResult = RegisterResult.Idle,
     initialFormData: RegisterFormData = RegisterFormData(),
-    onRegisterClick: (username: String, email: String, password: String) -> Unit = { _, _, _ -> },
+    onRegisterClick: (username: String, email: String, password: String, isGestor: Boolean) -> Unit = { _, _, _, _ -> },
     onBackClick: () -> Unit = {},
     onTermsClick: (formData: RegisterFormData) -> Unit = {},
     onTermsCheckedChange: (Boolean) -> Unit = {},
@@ -69,7 +69,11 @@ fun RegisterScreen(
         username.isNotBlank() && email.isNotBlank() && password.isNotBlank() && confirmPassword.isNotBlank()
     val passwordsMatch = password == confirmPassword
     val validAccessCode = DevConfig.SKIP_ACCESS_CODE || accessCode == "carfelchemsafety2026"
-    val canRegister = fieldsCompleted && termsAccepted && passwordsMatch && validAccessCode
+    val canRegister =
+        if(isFromUserLogged) {
+            fieldsCompleted && passwordsMatch && validAccessCode
+        } else { fieldsCompleted && termsAccepted && passwordsMatch && validAccessCode }
+
     val isLoading = registerState is RegisterResult.Loading
 
     Column(
@@ -212,11 +216,6 @@ fun RegisterScreen(
                     textDecoration = TextDecoration.Underline,
                     modifier = Modifier
                         .padding(start = 5.dp)
-                        .clickable {
-                            if (!isLoading) onTermsClick(
-                                RegisterFormData(username, email, password, confirmPassword)
-                            )
-                        }
                 )
             }
         } else {
@@ -238,11 +237,6 @@ fun RegisterScreen(
                     textDecoration = TextDecoration.Underline,
                     modifier = Modifier
                         .padding(start = 5.dp)
-                        .clickable {
-                            if (!isLoading) onTermsClick(
-                                RegisterFormData(username, email, password, confirmPassword)
-                            )
-                        }
                 )
             }
         }
@@ -250,7 +244,13 @@ fun RegisterScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
-            onClick = { onRegisterClick(username, email, password) },
+            onClick = {
+                if (!isFromUserLogged) {
+                    onRegisterClick(username, email, password, false)
+                } else {
+                    onRegisterClick(username, email, password, termsAccepted)
+                }
+            },
             modifier = Modifier.fillMaxWidth(),
             enabled = canRegister && !isLoading
         ) {
@@ -283,7 +283,6 @@ fun RegisterScreenPreview() {
 
     RegisterScreen(
         strings = strings,
-        termsAccepted = true,
         isFromUserLogged = true
     )
 }

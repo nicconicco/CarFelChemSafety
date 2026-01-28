@@ -1,16 +1,14 @@
 package com.cng.carfelchemsafety.repository
 
-import kotlinx.coroutines.delay
+import com.cng.carfelchemsafety.excel.ExcelParser
 
 class LocalExcelImportRepository : ExcelImportRepository {
 
-    override suspend fun importEmployees(): Result<Int> {
-        delay(2000)
-        return Result.success(15)
+    override suspend fun importEmployees(fileBytes: ByteArray): Result<Int> {
+        return ExcelParser.countRows(fileBytes)
     }
 
-    override suspend fun importPTData(): Result<Int> {
-        delay(2000)
-        return Result.success(42)
+    override suspend fun importPTData(fileBytes: ByteArray): Result<Int> {
+        return ExcelParser.countRows(fileBytes)
     }
 }

@@ -21,10 +21,33 @@ class ExcelImportViewModel(
     private val _ptImportState = MutableStateFlow<ExcelImportResult>(ExcelImportResult.Idle)
     val ptImportState: StateFlow<ExcelImportResult> = _ptImportState.asStateFlow()
 
-    fun importEmployees() {
+    private val _showEmployeePicker = MutableStateFlow(false)
+    val showEmployeePicker: StateFlow<Boolean> = _showEmployeePicker.asStateFlow()
+
+    private val _showPTPicker = MutableStateFlow(false)
+    val showPTPicker: StateFlow<Boolean> = _showPTPicker.asStateFlow()
+
+    fun requestEmployeeFilePicker() {
+        _showEmployeePicker.value = true
+    }
+
+    fun requestPTFilePicker() {
+        _showPTPicker.value = true
+    }
+
+    fun onEmployeePickerDismissed() {
+        _showEmployeePicker.value = false
+    }
+
+    fun onPTPickerDismissed() {
+        _showPTPicker.value = false
+    }
+
+    fun importEmployees(fileBytes: ByteArray) {
+        _showEmployeePicker.value = false
         scope.launch {
             _employeeImportState.value = ExcelImportResult.Loading
-            repository.importEmployees()
+            repository.importEmployees(fileBytes)
                 .onSuccess { count ->
                     _employeeImportState.value = ExcelImportResult.Success(count, "employees")
                 }
@@ -34,10 +57,11 @@ class ExcelImportViewModel(
         }
     }
 
-    fun importPTData() {
+    fun importPTData(fileBytes: ByteArray) {
+        _showPTPicker.value = false
         scope.launch {
             _ptImportState.value = ExcelImportResult.Loading
-            repository.importPTData()
+            repository.importPTData(fileBytes)
                 .onSuccess { count ->
                     _ptImportState.value = ExcelImportResult.Success(count, "pts")
                 }

@@ -1,7 +1,5 @@
 package com.cng.carfelchemsafety.util
 
-import kotlin.TODO
-
 enum class Language(val code: String, val flag: String) {
     PORTUGUESE("pt-BR", "\uD83C\uDDE7\uD83C\uDDF7"),
     ENGLISH("en-US", "\uD83C\uDDFA\uD83C\uDDF8"),
@@ -392,16 +390,16 @@ object Translations {
         incorrectPassword = "Senha incorreta",
         enterButton = "Entrar",
         menuImportExcel = "Importar Excel",
-        importExcelTitle = "Tela de importação de Excel",
-        importExcelSubtitle = "Importe sua planilha excel em esta tela",
-        importEmployeesTitle = "importEmployeesTitle",
-        importEmployeesDesc = "importEmployeesDesc",
-        importPTDataTitle = "importPTDataTitle",
-        importPTDataDesc = "importPTDataDesc",
-        importEmployeesSuccess = "importEmployeesSuccess",
-        importSuccessTitle = "importSuccessTitle",
-        importPTDataSuccess = "importPTDataSuccess",
-        importErrorTitle = "importErrorTitle",
+        importExcelTitle = "Importar Excel",
+        importExcelSubtitle = "Selecione o tipo de dados para importar",
+        importEmployeesTitle = "Importar Funcionarios",
+        importEmployeesDesc = "Importe a lista de funcionarios a partir de uma planilha Excel.",
+        importPTDataTitle = "Importar Dados de PTs",
+        importPTDataDesc = "Importe dados de permissoes de trabalho a partir de uma planilha Excel.",
+        importEmployeesSuccess = "%d funcionarios importados com sucesso!",
+        importSuccessTitle = "Importacao Concluida",
+        importPTDataSuccess = "%d PTs importadas com sucesso!",
+        importErrorTitle = "Erro na Importacao",
         importButton = "Importar"
     )
 
@@ -585,16 +583,16 @@ object Translations {
         incorrectPassword = "Incorrect password",
         enterButton = "Enter",
         menuImportExcel = "Import Excel",
-        importExcelTitle = "Tela de importação de Excel",
-        importExcelSubtitle = "Importe sua planilha excel em esta tela",
-        importEmployeesTitle = "importEmployeesTitle",
-        importEmployeesDesc = "importEmployeesDesc",
-        importPTDataTitle = "importPTDataTitle",
-        importPTDataDesc = "importPTDataDesc",
-        importEmployeesSuccess = "importEmployeesSuccess",
-        importSuccessTitle = "importSuccessTitle",
-        importPTDataSuccess = "importPTDataSuccess",
-        importErrorTitle = "importErrorTitle",
+        importExcelTitle = "Import Excel",
+        importExcelSubtitle = "Select the type of data to import",
+        importEmployeesTitle = "Import Employees",
+        importEmployeesDesc = "Import the employee list from an Excel spreadsheet.",
+        importPTDataTitle = "Import PT Data",
+        importPTDataDesc = "Import work permit data from an Excel spreadsheet.",
+        importEmployeesSuccess = "%d employees imported successfully!",
+        importSuccessTitle = "Import Complete",
+        importPTDataSuccess = "%d PTs imported successfully!",
+        importErrorTitle = "Import Error",
         importButton = "Import"
     )
 
@@ -778,16 +776,16 @@ object Translations {
         incorrectPassword = "Contrasena incorrecta",
         enterButton = "Entrar",
         menuImportExcel = "Importar Excel",
-        importExcelTitle = "Tela de importação de Excel",
-        importExcelSubtitle = "Importe sua planilha excel em esta tela",
-        importEmployeesTitle = "importEmployeesTitle",
-        importEmployeesDesc = "importEmployeesDesc",
-        importPTDataTitle = "importPTDataTitle",
-        importPTDataDesc = "importPTDataDesc",
-        importEmployeesSuccess = "importEmployeesSuccess",
-        importSuccessTitle = "importSuccessTitle",
-        importPTDataSuccess = "importPTDataSuccess",
-        importErrorTitle = "importErrorTitle",
+        importExcelTitle = "Importar Excel",
+        importExcelSubtitle = "Seleccione el tipo de datos a importar",
+        importEmployeesTitle = "Importar Empleados",
+        importEmployeesDesc = "Importe la lista de empleados desde una hoja de calculo Excel.",
+        importPTDataTitle = "Importar Datos de PTs",
+        importPTDataDesc = "Importe datos de permisos de trabajo desde una hoja de calculo Excel.",
+        importEmployeesSuccess = "%d empleados importados con exito!",
+        importSuccessTitle = "Importacion Completa",
+        importPTDataSuccess = "%d PTs importadas con exito!",
+        importErrorTitle = "Error en la Importacion",
         importButton = "Importar"
     )
 

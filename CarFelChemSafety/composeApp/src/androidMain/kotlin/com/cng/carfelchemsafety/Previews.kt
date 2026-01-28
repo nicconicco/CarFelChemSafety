@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.cng.carfelchemsafety.model.UserRole
 import com.cng.carfelchemsafety.screens.HomeScreen
+import com.cng.carfelchemsafety.screens.ImportExcelScreen
 import com.cng.carfelchemsafety.screens.MyAccountScreen
 import com.cng.carfelchemsafety.screens.MyApprovalsScreen
 import com.cng.carfelchemsafety.screens.MyPermitsScreen
@@ -21,6 +22,7 @@ import com.cng.carfelchemsafety.screens.workpermit.PermitResultScreen
 import com.cng.carfelchemsafety.screens.workpermit.StepProgressIndicator
 import com.cng.carfelchemsafety.screens.workpermit.SubmittingPermitScreen
 import com.cng.carfelchemsafety.util.Translations
+import com.cng.carfelchemsafety.viewmodel.ExcelImportViewModel
 import com.cng.carfelchemsafety.viewmodel.SharedLoginViewModel
 import com.cng.carfelchemsafety.viewmodel.WorkPermitViewModel
 
@@ -40,6 +42,38 @@ fun HomeScreenPreview() {
             onMyAccount = {},
             userRole = UserRole.MANAGER,
             onImportExcel = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenCommonPreview() {
+    MaterialTheme {
+        HomeScreen(
+            viewModel = SharedLoginViewModel(),
+            strings = Translations.portuguese,
+            userRole = UserRole.COMMON,
+            onLogout = {},
+            onCreatePT = {},
+            onMyPermits = {},
+            onMyApprovals = {},
+            onMyAccount = {},
+            onImportExcel = {}
+        )
+    }
+}
+
+// -- Import Excel --
+
+@Preview(showBackground = true)
+@Composable
+fun ImportExcelScreenPreview() {
+    MaterialTheme {
+        ImportExcelScreen(
+            viewModel = ExcelImportViewModel(),
+            strings = Translations.portuguese,
+            onBack = {}
         )
     }
 }

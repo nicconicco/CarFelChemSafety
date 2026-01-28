@@ -26,6 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.cng.carfelchemsafety.auth.ExcelImportResult
+import com.cng.carfelchemsafety.excel.ExcelFilePicker
+import com.cng.carfelchemsafety.excel.FilePickerResult
 import com.cng.carfelchemsafety.util.AppStrings
 import com.cng.carfelchemsafety.viewmodel.ExcelImportViewModel
 
@@ -38,6 +40,34 @@ fun ImportExcelScreen(
 ) {
     val employeeState by viewModel.employeeImportState.collectAsState()
     val ptState by viewModel.ptImportState.collectAsState()
+    val showEmployeePicker by viewModel.showEmployeePicker.collectAsState()
+    val showPTPicker by viewModel.showPTPicker.collectAsState()
+
+    // Employee file picker
+    ExcelFilePicker(show = showEmployeePicker) { result ->
+        when (result) {
+            is FilePickerResult.Success -> viewModel.importEmployees(result.bytes)
+            is FilePickerResult.Error -> {
+                viewModel.onEmployeePickerDismissed()
+            }
+            is FilePickerResult.Cancelled -> {
+                viewModel.onEmployeePickerDismissed()
+            }
+        }
+    }
+
+    // PT Data file picker
+    ExcelFilePicker(show = showPTPicker) { result ->
+        when (result) {
+            is FilePickerResult.Success -> viewModel.importPTData(result.bytes)
+            is FilePickerResult.Error -> {
+                viewModel.onPTPickerDismissed()
+            }
+            is FilePickerResult.Cancelled -> {
+                viewModel.onPTPickerDismissed()
+            }
+        }
+    }
 
     Column(
         modifier = modifier
@@ -70,7 +100,7 @@ fun ImportExcelScreen(
             description = strings.importEmployeesDesc,
             buttonText = strings.importButton,
             isLoading = employeeState is ExcelImportResult.Loading,
-            onClick = { viewModel.importEmployees() }
+            onClick = { viewModel.requestEmployeeFilePicker() }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -81,7 +111,7 @@ fun ImportExcelScreen(
             description = strings.importPTDataDesc,
             buttonText = strings.importButton,
             isLoading = ptState is ExcelImportResult.Loading,
-            onClick = { viewModel.importPTData() }
+            onClick = { viewModel.requestPTFilePicker() }
         )
 
         Spacer(modifier = Modifier.weight(1f))

@@ -56,6 +56,7 @@ fun App() {
 
     var currentScreen by remember { mutableStateOf(Screen.Login) }
     var termsAccepted by remember { mutableStateOf(false) }
+    var isFromUserLogged by remember { mutableStateOf(false) }
     var currentLanguage by remember { mutableStateOf(Language.PORTUGUESE) }
     var registerFormData by remember { mutableStateOf(RegisterFormData()) }
 
@@ -67,9 +68,11 @@ fun App() {
         is RegisterResult.Success -> {
             currentScreen = Screen.Login
         }
+
         is RegisterResult.Error -> {
             ErrorDialog((registerState as RegisterResult.Error).message)
         }
+
         else -> {}
     }
 
@@ -77,9 +80,11 @@ fun App() {
         is AuthResult.Success -> {
             currentScreen = Screen.Home
         }
+
         is AuthResult.Error -> {
             ErrorDialog((loginState as AuthResult.Error).message)
         }
+
         else -> {}
     }
 
@@ -111,11 +116,13 @@ fun App() {
                         }
                     )
                 }
+
                 Screen.Home -> {
                     HomeScreen(
                         viewModel = viewModel,
                         strings = strings,
-                        userRole = currentUser?.role ?: com.cng.carfelchemsafety.model.UserRole.COMMON,
+                        userRole = currentUser?.role
+                            ?: com.cng.carfelchemsafety.model.UserRole.COMMON,
                         onLogout = {
                             currentScreen = Screen.Login
                         },
@@ -137,6 +144,7 @@ fun App() {
                         }
                     )
                 }
+
                 Screen.Register -> {
                     RegisterScreen(
                         strings = strings,
@@ -152,10 +160,16 @@ fun App() {
                             )
                         },
                         onBackClick = {
-                            viewModel.resetRegisterState()
-                            registerFormData = RegisterFormData()
-                            termsAccepted = false
-                            currentScreen = Screen.Login
+                            if (isFromUserLogged) {
+                                currentScreen = Screen.MenuAdmin
+                            } else {
+                                isFromUserLogged = false
+
+                                viewModel.resetRegisterState()
+                                registerFormData = RegisterFormData()
+                                termsAccepted = false
+                                currentScreen = Screen.Login
+                            }
                         },
                         onTermsClick = { formData ->
                             registerFormData = formData
@@ -163,9 +177,11 @@ fun App() {
                         },
                         onTermsCheckedChange = { checked ->
                             termsAccepted = checked
-                        }
+                        },
+                        isFromUserLogged
                     )
                 }
+
                 Screen.Terms -> {
                     TermsScreen(
                         strings = strings,
@@ -175,6 +191,7 @@ fun App() {
                         }
                     )
                 }
+
                 Screen.ForgotPassword -> {
                     ForgotPasswordScreen(
                         strings = strings,
@@ -191,8 +208,10 @@ fun App() {
                         }
                     )
                 }
+
                 Screen.TempPassword -> {
-                    val message = (passwordRecoveryState as? PasswordRecoveryResult.Success)?.message ?: ""
+                    val message =
+                        (passwordRecoveryState as? PasswordRecoveryResult.Success)?.message ?: ""
                     TempPasswordScreen(
                         strings = strings,
                         successMessage = message,
@@ -215,6 +234,7 @@ fun App() {
                         }
                     )
                 }
+
                 Screen.CreatePermitStep2 -> {
                     CreatePermitStep2Screen(
                         viewModel = permitViewModel,
@@ -223,6 +243,7 @@ fun App() {
                         onPrevious = { currentScreen = Screen.CreatePermitStep1 }
                     )
                 }
+
                 Screen.CreatePermitStep3 -> {
                     CreatePermitStep3Screen(
                         viewModel = permitViewModel,
@@ -231,6 +252,7 @@ fun App() {
                         onPrevious = { currentScreen = Screen.CreatePermitStep2 }
                     )
                 }
+
                 Screen.CreatePermitStep4 -> {
                     CreatePermitStep4Screen(
                         viewModel = permitViewModel,
@@ -239,6 +261,7 @@ fun App() {
                         onPrevious = { currentScreen = Screen.CreatePermitStep3 }
                     )
                 }
+
                 Screen.CreatePermitStep5 -> {
                     CreatePermitStep5Screen(
                         viewModel = permitViewModel,
@@ -247,6 +270,7 @@ fun App() {
                         onPrevious = { currentScreen = Screen.CreatePermitStep4 }
                     )
                 }
+
                 Screen.CreatePermitStep6 -> {
                     CreatePermitStep6Screen(
                         viewModel = permitViewModel,
@@ -255,6 +279,7 @@ fun App() {
                         onPrevious = { currentScreen = Screen.CreatePermitStep5 }
                     )
                 }
+
                 Screen.CreatePermitStep7 -> {
                     CreatePermitStep7Screen(
                         viewModel = permitViewModel,
@@ -270,6 +295,7 @@ fun App() {
                         onPrevious = { currentScreen = Screen.CreatePermitStep6 }
                     )
                 }
+
                 Screen.CreatePermitStep8 -> {
                     CreatePermitStep8Screen(
                         viewModel = permitViewModel,
@@ -278,6 +304,7 @@ fun App() {
                         onPrevious = { currentScreen = Screen.CreatePermitStep7 }
                     )
                 }
+
                 Screen.CreatePermitStep9 -> {
                     CreatePermitStep9Screen(
                         viewModel = permitViewModel,
@@ -309,6 +336,7 @@ fun App() {
                         currentScreen = Screen.PermitResult
                     }
                 }
+
                 Screen.PermitResult -> {
                     PermitResultScreen(
                         viewModel = permitViewModel,
@@ -326,12 +354,14 @@ fun App() {
                         onBack = { currentScreen = Screen.Home }
                     )
                 }
+
                 Screen.MyApprovals -> {
                     MyApprovalsScreen(
                         strings = strings,
                         onBack = { currentScreen = Screen.Home }
                     )
                 }
+
                 Screen.MyAccount -> {
                     val profileUpdateState by viewModel.profileUpdateState.collectAsState()
                     val passwordChangeState by viewModel.passwordChangeState.collectAsState()
@@ -363,7 +393,11 @@ fun App() {
                     MenuAdminScreen(
                         viewModel = excelImportViewModel,
                         strings = strings,
-                        onBack = { currentScreen = Screen.Home }
+                        onBack = { currentScreen = Screen.Home },
+                        onClickRegister = {
+                            isFromUserLogged = true
+                            currentScreen = Screen.Register
+                        }
                     )
                 }
             }

@@ -73,7 +73,8 @@ fun MenuAdminScreenPreview() {
         MenuAdminScreen(
             viewModel = ExcelImportViewModel(),
             strings = Translations.portuguese,
-            onBack = {}
+            onBack = {},
+            onClickRegister = {}
         )
     }
 }

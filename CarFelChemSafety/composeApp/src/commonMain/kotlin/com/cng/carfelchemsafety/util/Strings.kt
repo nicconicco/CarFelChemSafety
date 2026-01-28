@@ -18,6 +18,7 @@ data class AppStrings(
     // Register
     val register: String,
     val name: String,
+    val registerUserOrAdmin: String,
     val email: String,
     val cpf: String,
     val phone: String,
@@ -25,6 +26,7 @@ data class AppStrings(
     val requiredFields: String,
     val acceptTerms: String,
     val registerButton: String,
+    val registerButtonMenu: String,
     val backToLogin: String,
 
     // Terms
@@ -206,7 +208,7 @@ data class AppStrings(
     val importSuccessTitle: String,
     val importPTDataSuccess: String,
     val importErrorTitle: String,
-    val importButton: String
+    val importButton: String,
 )
 
 object Translations {
@@ -227,6 +229,8 @@ object Translations {
         requiredFields = "* Campos obrigatorios",
         acceptTerms = "Aceito os termos de compromisso",
         registerButton = "Cadastrar",
+        registerButtonMenu = "Registrar usuario ou gerente",
+        registerUserOrAdmin = "Este usuario é um Gestor? Clique para ativar gestor, caso não deixe descelecionado",
         backToLogin = "Voltar ao login",
 
         termsTitle = "Termos de Compromisso",
@@ -400,7 +404,7 @@ object Translations {
         importSuccessTitle = "Importacao Concluida",
         importPTDataSuccess = "%d PTs importadas com sucesso!",
         importErrorTitle = "Erro na Importacao",
-        importButton = "Importar"
+        importButton = "Importar",
     )
 
     val english = AppStrings(
@@ -420,6 +424,8 @@ object Translations {
         requiredFields = "* Required fields",
         acceptTerms = "I accept the terms and conditions",
         registerButton = "Register",
+        registerButtonMenu = "Register user or administrator",
+        registerUserOrAdmin = "Is this user a Manager? Click to activate Manager status; otherwise, leave it unselected.",
         backToLogin = "Back to login",
 
         termsTitle = "Terms and Conditions",
@@ -613,6 +619,8 @@ object Translations {
         requiredFields = "* Campos obligatorios",
         acceptTerms = "Acepto los terminos y condiciones",
         registerButton = "Registrarse",
+        registerButtonMenu = "Registrar usuario o administrador",
+        registerUserOrAdmin = "¿Este usuario es un Gestor? Haga clic para activar el perfil de gestor; de lo contrario, déjelo sin marcar.",
         backToLogin = "Volver al inicio",
 
         termsTitle = "Terminos y Condiciones",

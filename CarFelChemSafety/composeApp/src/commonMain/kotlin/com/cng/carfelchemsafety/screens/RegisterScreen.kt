@@ -30,11 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cng.carfelchemsafety.auth.RegisterResult
 import com.cng.carfelchemsafety.config.DevConfig
 import com.cng.carfelchemsafety.util.AppStrings
+import com.cng.carfelchemsafety.util.Language
+import com.cng.carfelchemsafety.util.Translations
 
 data class RegisterFormData(
     val username: String = "",
@@ -52,7 +55,8 @@ fun RegisterScreen(
     onRegisterClick: (username: String, email: String, password: String) -> Unit = { _, _, _ -> },
     onBackClick: () -> Unit = {},
     onTermsClick: (formData: RegisterFormData) -> Unit = {},
-    onTermsCheckedChange: (Boolean) -> Unit = {}
+    onTermsCheckedChange: (Boolean) -> Unit = {},
+    isFromUserLogged: Boolean = false
 ) {
     var username by remember { mutableStateOf(initialFormData.username) }
     var email by remember { mutableStateOf(initialFormData.email) }
@@ -189,30 +193,58 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Checkbox(
-                checked = termsAccepted,
-                onCheckedChange = { checked ->
-                    if (!isLoading) onTermsCheckedChange(checked)
-                },
-                enabled = !isLoading
-            )
-            Text(
-                text = strings.acceptTerms,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.primary,
-                textDecoration = TextDecoration.Underline,
-                modifier = Modifier
-                    .padding(start = 5.dp)
-                    .clickable {
-                        if (!isLoading) onTermsClick(
-                            RegisterFormData(username, email, password, confirmPassword)
-                        )
-                    }
-            )
+        if (isFromUserLogged) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = termsAccepted,
+                    onCheckedChange = { checked ->
+                        if (!isLoading) onTermsCheckedChange(checked)
+                    },
+                    enabled = !isLoading
+                )
+                Text(
+                    text = strings.registerUserOrAdmin,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    textDecoration = TextDecoration.Underline,
+                    modifier = Modifier
+                        .padding(start = 5.dp)
+                        .clickable {
+                            if (!isLoading) onTermsClick(
+                                RegisterFormData(username, email, password, confirmPassword)
+                            )
+                        }
+                )
+            }
+        } else {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = termsAccepted,
+                    onCheckedChange = { checked ->
+                        if (!isLoading) onTermsCheckedChange(checked)
+                    },
+                    enabled = !isLoading
+                )
+                Text(
+                    text = strings.acceptTerms,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    textDecoration = TextDecoration.Underline,
+                    modifier = Modifier
+                        .padding(start = 5.dp)
+                        .clickable {
+                            if (!isLoading) onTermsClick(
+                                RegisterFormData(username, email, password, confirmPassword)
+                            )
+                        }
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -242,4 +274,16 @@ fun RegisterScreen(
             Text(strings.backToLogin)
         }
     }
+}
+
+@Preview
+@Composable
+fun RegisterScreenPreview() {
+    val strings = Translations.getStrings(Language.PORTUGUESE)
+
+    RegisterScreen(
+        strings = strings,
+        termsAccepted = true,
+        isFromUserLogged = true
+    )
 }

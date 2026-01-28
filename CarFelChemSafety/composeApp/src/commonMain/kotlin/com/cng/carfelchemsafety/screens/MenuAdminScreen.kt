@@ -24,11 +24,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.cng.carfelchemsafety.auth.ExcelImportResult
 import com.cng.carfelchemsafety.excel.ExcelFilePicker
 import com.cng.carfelchemsafety.excel.FilePickerResult
 import com.cng.carfelchemsafety.util.AppStrings
+import com.cng.carfelchemsafety.util.Language
+import com.cng.carfelchemsafety.util.Translations
 import com.cng.carfelchemsafety.viewmodel.ExcelImportViewModel
 
 @Composable
@@ -36,6 +39,7 @@ fun MenuAdminScreen(
     viewModel: ExcelImportViewModel,
     strings: AppStrings,
     onBack: () -> Unit,
+    onClickRegister: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val employeeState by viewModel.employeeImportState.collectAsState()
@@ -50,6 +54,7 @@ fun MenuAdminScreen(
             is FilePickerResult.Error -> {
                 viewModel.onEmployeePickerDismissed()
             }
+
             is FilePickerResult.Cancelled -> {
                 viewModel.onEmployeePickerDismissed()
             }
@@ -63,6 +68,7 @@ fun MenuAdminScreen(
             is FilePickerResult.Error -> {
                 viewModel.onPTPickerDismissed()
             }
+
             is FilePickerResult.Cancelled -> {
                 viewModel.onPTPickerDismissed()
             }
@@ -114,6 +120,16 @@ fun MenuAdminScreen(
             onClick = { viewModel.requestPTFilePicker() }
         )
 
+        Spacer(modifier = Modifier.height(32.dp))
+        // add new user
+        Button(
+            onClick = onClickRegister,
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Text(text = strings.registerButtonMenu)
+        }
+
         Spacer(modifier = Modifier.weight(1f))
 
         TextButton(onClick = onBack) {
@@ -130,7 +146,14 @@ fun MenuAdminScreen(
             AlertDialog(
                 onDismissRequest = { viewModel.resetEmployeeImportState() },
                 title = { Text(strings.importSuccessTitle) },
-                text = { Text(strings.importEmployeesSuccess.replace("%d", state.count.toString())) },
+                text = {
+                    Text(
+                        strings.importEmployeesSuccess.replace(
+                            "%d",
+                            state.count.toString()
+                        )
+                    )
+                },
                 confirmButton = {
                     TextButton(onClick = { viewModel.resetEmployeeImportState() }) {
                         Text("OK")
@@ -138,6 +161,7 @@ fun MenuAdminScreen(
                 }
             )
         }
+
         is ExcelImportResult.Error -> {
             AlertDialog(
                 onDismissRequest = { viewModel.resetEmployeeImportState() },
@@ -150,6 +174,7 @@ fun MenuAdminScreen(
                 }
             )
         }
+
         else -> {}
     }
 
@@ -167,6 +192,7 @@ fun MenuAdminScreen(
                 }
             )
         }
+
         is ExcelImportResult.Error -> {
             AlertDialog(
                 onDismissRequest = { viewModel.resetPTImportState() },
@@ -179,6 +205,7 @@ fun MenuAdminScreen(
                 }
             )
         }
+
         else -> {}
     }
 }
@@ -237,4 +264,17 @@ private fun ImportCard(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun ImportExcelScreenPreview() {
+    val strings = Translations.getStrings(Language.PORTUGUESE)
+
+    MenuAdminScreen(
+        viewModel = ExcelImportViewModel(),
+        strings = strings,
+        onBack = {},
+        onClickRegister = {}
+    )
 }

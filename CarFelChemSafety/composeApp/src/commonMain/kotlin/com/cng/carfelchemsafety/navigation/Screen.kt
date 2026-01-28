@@ -28,6 +28,6 @@ enum class Screen {
     MyApprovals,
     MyAccount,
 
-    // Excel Import
-    ImportExcel
+    // Menu Admin
+    MenuAdmin
 }

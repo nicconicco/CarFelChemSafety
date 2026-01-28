@@ -22,7 +22,7 @@ import com.cng.carfelchemsafety.navigation.Screen
 import com.cng.carfelchemsafety.screens.ErrorDialog
 import com.cng.carfelchemsafety.screens.ForgotPasswordScreen
 import com.cng.carfelchemsafety.screens.HomeScreen
-import com.cng.carfelchemsafety.screens.ImportExcelScreen
+import com.cng.carfelchemsafety.screens.MenuAdminScreen
 import com.cng.carfelchemsafety.screens.LoginScreen
 import com.cng.carfelchemsafety.screens.MyAccountScreen
 import com.cng.carfelchemsafety.screens.MyApprovalsScreen
@@ -132,8 +132,8 @@ fun App() {
                         onMyAccount = {
                             currentScreen = Screen.MyAccount
                         },
-                        onImportExcel = {
-                            currentScreen = Screen.ImportExcel
+                        onMenuAdmin = {
+                            currentScreen = Screen.MenuAdmin
                         }
                     )
                 }
@@ -359,8 +359,8 @@ fun App() {
                     )
                 }
 
-                Screen.ImportExcel -> {
-                    ImportExcelScreen(
+                Screen.MenuAdmin -> {
+                    MenuAdminScreen(
                         viewModel = excelImportViewModel,
                         strings = strings,
                         onBack = { currentScreen = Screen.Home }

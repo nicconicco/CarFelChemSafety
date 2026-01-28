@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.cng.carfelchemsafety.model.UserRole
 import com.cng.carfelchemsafety.screens.HomeScreen
-import com.cng.carfelchemsafety.screens.ImportExcelScreen
+import com.cng.carfelchemsafety.screens.MenuAdminScreen
 import com.cng.carfelchemsafety.screens.MyAccountScreen
 import com.cng.carfelchemsafety.screens.MyApprovalsScreen
 import com.cng.carfelchemsafety.screens.MyPermitsScreen
@@ -41,7 +41,7 @@ fun HomeScreenPreview() {
             onMyApprovals = {},
             onMyAccount = {},
             userRole = UserRole.MANAGER,
-            onImportExcel = {}
+            onMenuAdmin = {}
         )
     }
 }
@@ -59,7 +59,7 @@ fun HomeScreenCommonPreview() {
             onMyPermits = {},
             onMyApprovals = {},
             onMyAccount = {},
-            onImportExcel = {}
+            onMenuAdmin = {}
         )
     }
 }
@@ -68,9 +68,9 @@ fun HomeScreenCommonPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun ImportExcelScreenPreview() {
+fun MenuAdminScreenPreview() {
     MaterialTheme {
-        ImportExcelScreen(
+        MenuAdminScreen(
             viewModel = ExcelImportViewModel(),
             strings = Translations.portuguese,
             onBack = {}

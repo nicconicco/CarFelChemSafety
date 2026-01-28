@@ -32,7 +32,7 @@ import com.cng.carfelchemsafety.util.AppStrings
 import com.cng.carfelchemsafety.viewmodel.ExcelImportViewModel
 
 @Composable
-fun ImportExcelScreen(
+fun MenuAdminScreen(
     viewModel: ExcelImportViewModel,
     strings: AppStrings,
     onBack: () -> Unit,

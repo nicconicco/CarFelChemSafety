@@ -230,7 +230,7 @@ object Translations {
         acceptTerms = "Aceito os termos de compromisso",
         registerButton = "Cadastrar",
         registerButtonMenu = "Registrar usuario ou gerente",
-        registerUserOrAdmin = "Este usuario é um Gestor? Clique para ativar gestor, caso não deixe descelecionado",
+        registerUserOrAdmin = "Este usuario é um Gestor? Clique para ativar gestor, caso não deixe desmarcado",
         backToLogin = "Voltar ao login",
 
         termsTitle = "Termos de Compromisso",

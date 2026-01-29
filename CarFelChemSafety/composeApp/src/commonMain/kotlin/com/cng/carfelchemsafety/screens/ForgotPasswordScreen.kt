@@ -25,10 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.cng.carfelchemsafety.auth.PasswordRecoveryResult
 import com.cng.carfelchemsafety.util.AppStrings
+import com.cng.carfelchemsafety.util.Language
+import com.cng.carfelchemsafety.util.Translations
 
 @Composable
 fun ForgotPasswordScreen(
@@ -91,31 +94,6 @@ fun ForgotPasswordScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(
-            value = accessCode,
-            onValueChange = {
-                accessCode = it
-                accessCodeError = false
-            },
-            label = { Text("${strings.accessCode} *") },
-            singleLine = true,
-            modifier = Modifier.fillMaxWidth(),
-            visualTransformation = PasswordVisualTransformation(),
-            enabled = !isLoading,
-            isError = accessCodeError
-        )
-
-        if (accessCodeError) {
-            Text(
-                text = strings.invalidAccessCode,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-
-        Spacer(modifier = Modifier.height(4.dp))
-
         Text(
             text = strings.requiredFields,
             fontSize = 12.sp,
@@ -167,4 +145,19 @@ fun ForgotPasswordScreen(
             Text(strings.backToLogin)
         }
     }
+}
+
+
+@Preview
+@Composable
+fun ForgotPasswordScreenPreview() {
+    val strings = Translations.getStrings(Language.PORTUGUESE)
+
+    ForgotPasswordScreen(
+        strings = strings,
+        passwordRecoveryState = PasswordRecoveryResult.Idle,
+        onConfirmClick = {},
+        onBackClick = {},
+        onSuccess = {}
+    )
 }
